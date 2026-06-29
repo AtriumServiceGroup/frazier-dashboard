@@ -6,99 +6,140 @@
 <title>Leadership Workflow Dashboard — Frazier &amp; Associates, CPAs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     ATRIUM SERVICE GROUP — Brand Kit v1.5
+     ATRIUM SERVICE GROUP — Brand Kit v1.5  ·  Dashboard engine v2.0
      Ink #0E1116 · Graphite #2A2F36 · Bone #F4F1EB
      Atrium Blue #3A7CA5 (accent, <10%) · Steel #4A535E · Fog #9CA3AB
      Burnt Sienna #B5471F · Forest #2F5E4F (documented alt accents)
-     Fraunces (display) + clean sans (body/UI, web exception) + JetBrains Mono (figures)
+     Fraunces (display) + clean sans (UI) + JetBrains Mono (figures)
      No gold. No navy. No gradients. No italics.
      ============================================================ */
   :root{
     --ink:#0E1116; --graphite:#2A2F36; --bone:#F4F1EB; --paper:#FBFAF7;
-    --blue:#3A7CA5; --steel:#4A535E; --fog:#9CA3AB; --line:#E3DFD6;
+    --blue:#3A7CA5; --steel:#4A535E; --fog:#9CA3AB; --line:#E5E1D8; --line2:#EEEAE1;
     --sienna:#B5471F; --forest:#2F5E4F;
     --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --display:"Fraunces",Georgia,serif;
     --mono:"JetBrains Mono",Consolas,Menlo,monospace;
+    --sh1:0 1px 2px rgba(14,17,22,.05);
+    --sh2:0 4px 14px rgba(14,17,22,.08);
+    --sh3:0 18px 50px rgba(14,17,22,.22);
   }
   *{box-sizing:border-box}
   html,body{margin:0}
-  body{background:var(--bone);color:var(--ink);font-family:var(--sans);
-       font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  body{background:var(--bone);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
   h1,h2,h3,.display{font-family:var(--display);font-weight:600;letter-spacing:.1px}
   a{color:var(--blue);text-decoration:none}
+  ::selection{background:rgba(58,124,165,.18)}
 
   /* ---------- Header ---------- */
-  header.masthead{background:var(--bone);border-bottom:1px solid var(--line);padding:20px 28px 0}
-  .top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;max-width:1320px;margin:0 auto}
+  header.masthead{background:var(--bone);border-bottom:1px solid var(--line);padding:18px 30px 0;position:sticky;top:0;z-index:30}
+  .top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;max-width:1360px;margin:0 auto}
   .brand{display:flex;align-items:center;gap:16px}
-  .brand img{height:52px;width:auto;display:block}
-  .brand .sep{width:1px;height:44px;background:var(--line)}
-  .brand .titles h1{margin:0;font-size:22px;line-height:1.15}
-  .brand .titles .sub{color:var(--steel);font-size:13px;margin-top:3px}
-  .right-meta{text-align:right;font-size:12.5px;color:var(--steel);padding-top:4px}
+  .brand img{height:50px;width:auto;display:block}
+  .brand .sep{width:1px;height:42px;background:var(--line)}
+  .brand .titles h1{margin:0;font-size:21px;line-height:1.15}
+  .brand .titles .sub{color:var(--steel);font-size:12.5px;margin-top:3px}
+  .right-meta{text-align:right;font-size:12px;color:var(--steel);padding-top:2px}
   .right-meta .firm{font-family:var(--display);font-size:15px;color:var(--ink);font-weight:600}
-  .pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.6px;
-        text-transform:uppercase;padding:3px 9px;border-radius:2px;border:1px solid var(--steel);color:var(--steel)}
-  .accent-rule{height:3px;background:var(--blue);max-width:1320px;margin:18px auto 0;border-radius:2px}
+  .pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:3px 9px;border-radius:2px;border:1px solid var(--steel);color:var(--steel)}
+  .live{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--steel);margin-top:7px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--forest);box-shadow:0 0 0 0 rgba(47,94,79,.5);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,94,79,.45)}70%{box-shadow:0 0 0 7px rgba(47,94,79,0)}100%{box-shadow:0 0 0 0 rgba(47,94,79,0)}}
+  .accent-rule{height:3px;background:var(--blue);max-width:1360px;margin:16px auto 0;border-radius:2px}
 
-  /* ---------- Tabs ---------- */
-  nav.tabs{max-width:1320px;margin:0 auto;display:flex;gap:4px;padding:0 28px}
-  nav.tabs button{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--steel);
-        background:none;border:none;padding:14px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+  nav.tabs{max-width:1360px;margin:0 auto;display:flex;gap:2px;padding:0 30px}
+  nav.tabs button{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--steel);background:none;border:none;padding:14px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .15s}
   nav.tabs button:hover{color:var(--ink)}
   nav.tabs button.active{color:var(--ink);border-bottom-color:var(--blue)}
-  nav.tabs .count{display:inline-block;min-width:18px;text-align:center;font-family:var(--mono);
-        font-size:11px;background:var(--ink);color:var(--bone);border-radius:9px;padding:1px 6px;margin-left:6px}
+  nav.tabs .count{display:inline-block;min-width:18px;text-align:center;font-family:var(--mono);font-size:11px;background:var(--ink);color:var(--bone);border-radius:9px;padding:1px 6px;margin-left:6px}
 
-  main{max-width:1320px;margin:0 auto;padding:22px 28px 40px}
+  main{max-width:1360px;margin:0 auto;padding:22px 30px 44px}
 
   /* ---------- KPI tiles ---------- */
-  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:26px}
-  .kpi{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px;position:relative;overflow:hidden}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+  .kpi{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:15px 16px 13px;position:relative;overflow:hidden;box-shadow:var(--sh1);transition:transform .18s,box-shadow .18s}
+  .kpi:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
   .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
   .kpi.warn::before{background:var(--sienna)}
-  .kpi .label{font-size:11.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--steel);font-weight:600}
-  .kpi .num{font-family:var(--mono);font-size:32px;font-weight:600;color:var(--ink);line-height:1.1;margin-top:8px}
+  .kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--steel);font-weight:600}
+  .kpi .num{font-family:var(--mono);font-size:31px;font-weight:600;color:var(--ink);line-height:1.1;margin-top:8px;font-variant-numeric:tabular-nums}
   .kpi .num.warn{color:var(--sienna)}
-  .kpi .foot{font-size:12px;color:var(--fog);margin-top:4px}
+  .kpi .foot{font-size:11.5px;color:var(--fog);margin-top:3px}
+
+  /* ---------- Insights strip ---------- */
+  .insights{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-bottom:22px}
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:15px 17px;box-shadow:var(--sh1)}
+  .panel h3{margin:0 0 2px;font-size:14px}
+  .panel .ph-sub{font-size:11.5px;color:var(--fog);margin-bottom:12px}
+  .chart-row{display:flex;align-items:flex-end;gap:9px;height:96px}
+  .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%}
+  .bar-col .bwrap{flex:1;width:100%;display:flex;align-items:flex-end}
+  .bar-col .bar{width:100%;background:var(--blue);border-radius:3px 3px 0 0;transition:height .9s cubic-bezier(.2,.7,.2,1)}
+  .bar-col:last-child .bar{background:var(--ink)}
+  .bar-col .bl{font-family:var(--mono);font-size:10px;color:var(--fog)}
+  .bar-col .bv{font-family:var(--mono);font-size:10.5px;color:var(--steel);font-weight:600}
+  .stage-dist{display:flex;flex-direction:column;gap:9px;margin-top:2px}
+  .sd-row{display:grid;grid-template-columns:120px 1fr 26px;align-items:center;gap:10px;font-size:12px}
+  .sd-row .sdn{color:var(--steel)}
+  .sd-bar{height:10px;background:var(--line2);border-radius:6px;overflow:hidden}
+  .sd-bar>span{display:block;height:100%;background:var(--steel);border-radius:6px;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+  .sd-row .sdv{font-family:var(--mono);font-size:11.5px;color:var(--ink);text-align:right;font-weight:600}
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .search{position:relative;flex:1;min-width:220px;max-width:340px}
+  .search input{width:100%;font-family:var(--sans);font-size:13.5px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:9px 12px 9px 32px}
+  .search input::placeholder{color:var(--fog)}
+  .search input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(58,124,165,.12)}
+  .search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--fog)}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--paper)}
+  .seg button{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--steel);background:none;border:none;padding:8px 13px;cursor:pointer;border-right:1px solid var(--line2)}
+  .seg button:last-child{border-right:none}
+  .seg button.on{background:var(--ink);color:var(--bone)}
+  select.flt{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--steel);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer}
+  .btn{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--steel);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 13px;cursor:pointer}
+  .btn:hover{color:var(--ink);border-color:var(--steel)}
 
   /* ---------- Kanban ---------- */
   .board{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:start}
-  .col{background:var(--paper);border:1px solid var(--line);border-radius:6px;min-height:120px}
+  .col{background:var(--paper);border:1px solid var(--line);border-radius:8px;min-height:120px;box-shadow:var(--sh1)}
   .col-head{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--line)}
-  .col-head .name{font-family:var(--display);font-weight:600;font-size:14px}
+  .col-head .name{font-family:var(--display);font-weight:600;font-size:13.5px}
   .col-head .c{font-family:var(--mono);font-size:11px;color:var(--steel);background:var(--bone);border:1px solid var(--line);border-radius:9px;padding:1px 7px}
-  .col-body{padding:10px;min-height:60px;display:flex;flex-direction:column;gap:9px}
-  .col-body.dragover{background:rgba(58,124,165,.07);outline:2px dashed var(--blue);outline-offset:-6px}
-  .card{background:#fff;border:1px solid var(--line);border-left:3px solid var(--steel);border-radius:5px;
-        padding:10px 11px;cursor:grab;box-shadow:0 1px 0 rgba(14,17,22,.03)}
-  .card:active{cursor:grabbing}
+  .col-body{padding:10px;min-height:64px;display:flex;flex-direction:column;gap:9px;transition:background .15s}
+  .col-body.dragover{background:rgba(58,124,165,.07);outline:2px dashed var(--blue);outline-offset:-6px;border-radius:6px}
+  .card{background:#fff;border:1px solid var(--line);border-left:3px solid var(--steel);border-radius:6px;padding:10px 11px;cursor:pointer;box-shadow:var(--sh1);transition:transform .14s,box-shadow .14s,opacity .14s;animation:cardin .28s ease both}
+  @keyframes cardin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
   .card.flag-at-risk{border-left-color:var(--sienna)}
-  .card.flag-overdue{border-left-color:var(--sienna);background:#fdf4f0}
+  .card.flag-overdue{border-left-color:var(--sienna);background:#fdf5f1}
   .card.flag-on-track{border-left-color:var(--forest)}
   .card .ctop{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-  .card .client{font-weight:600;font-size:13.5px}
-  .card .type{font-family:var(--mono);font-size:11px;color:var(--steel);white-space:nowrap}
-  .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12px;color:var(--steel)}
+  .card .client{font-weight:600;font-size:13px;line-height:1.25}
+  .card .type{font-family:var(--mono);font-size:10.5px;color:var(--steel);white-space:nowrap}
+  .pri{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;color:var(--steel);margin-top:7px}
+  .pri i{width:7px;height:7px;border-radius:50%;background:var(--fog);display:inline-block}
+  .pri.high i{background:var(--sienna)} .pri.high{color:var(--sienna);font-weight:600}
+  .pri.low i{background:var(--forest)}
+  .card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11.5px;color:var(--steel)}
   .card .who{display:flex;align-items:center;gap:6px}
-  .av{width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--bone);font-size:10px;
-      font-weight:600;display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+  .av{width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--bone);font-size:9.5px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:var(--sans);flex:none}
   .card .fee{font-family:var(--mono);font-weight:600;color:var(--ink)}
-  .card .due{margin-top:7px;font-size:11.5px}
-  .due .tag{font-family:var(--mono)}
-  .due.bad{color:var(--sienna);font-weight:600}
-  .due.warnd{color:var(--sienna)}
-  .due.okd{color:var(--steel)}
+  .prog{height:4px;background:var(--line2);border-radius:3px;margin-top:9px;overflow:hidden}
+  .prog>span{display:block;height:100%;background:var(--blue);border-radius:3px}
+  .cfoot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:10.5px}
+  .cfoot .due{font-family:var(--mono)}
+  .due.bad{color:var(--sienna);font-weight:600}.due.warnd{color:var(--sienna)}.due.okd{color:var(--steel)}
+  .cfoot .dis{color:var(--fog)}
 
   /* ---------- Notices table ---------- */
-  table.grid{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  table.grid thead th{background:var(--ink);color:var(--bone);font-family:var(--display);font-weight:600;
-        font-size:12.5px;text-align:left;padding:11px 14px;letter-spacing:.3px}
-  table.grid tbody td{padding:11px 14px;border-top:1px solid var(--line);font-size:13.5px;vertical-align:middle}
+  table.grid{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:var(--sh1)}
+  table.grid thead th{background:var(--ink);color:var(--bone);font-family:var(--display);font-weight:600;font-size:12.5px;text-align:left;padding:11px 16px;letter-spacing:.3px}
+  table.grid tbody td{padding:11px 16px;border-top:1px solid var(--line2);font-size:13.5px;vertical-align:middle}
+  table.grid tbody tr{transition:background .12s}
   table.grid tbody tr:hover{background:rgba(58,124,165,.04)}
   .chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:11px;letter-spacing:.3px}
   .chip.open{background:#fdf4f0;color:var(--sienna);border:1px solid var(--sienna)}
@@ -107,31 +148,53 @@
   td.duecell.bad{color:var(--sienna);font-weight:600}
 
   /* ---------- Capacity ---------- */
-  .cap-wrap{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:6px 4px}
-  .cap-row{display:grid;grid-template-columns:230px 1fr 120px;align-items:center;gap:16px;padding:14px 18px;border-top:1px solid var(--line)}
+  .cap-wrap{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:6px 4px;box-shadow:var(--sh1)}
+  .cap-row{display:grid;grid-template-columns:240px 1fr 130px;align-items:center;gap:16px;padding:15px 20px;border-top:1px solid var(--line2)}
   .cap-row:first-child{border-top:none}
-  .cap-person{display:flex;align-items:center;gap:11px}
-  .cap-person .nm{font-weight:600}
-  .cap-person .rl{font-size:12px;color:var(--steel)}
-  .av.lg{width:32px;height:32px;font-size:12px}
-  .bar{height:14px;background:var(--bone);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .bar > span{display:block;height:100%;background:var(--blue)}
-  .bar > span.hot{background:var(--sienna)}
-  .bar > span.cool{background:var(--forest)}
+  .cap-person{display:flex;align-items:center;gap:12px}
+  .cap-person .nm{font-weight:600}.cap-person .rl{font-size:12px;color:var(--steel)}
+  .av.lg{width:34px;height:34px;font-size:12px}
+  .bar{height:14px;background:var(--line2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .bar>span{display:block;height:100%;background:var(--blue);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+  .bar>span.hot{background:var(--sienna)}.bar>span.cool{background:var(--forest)}
   .cap-num{font-family:var(--mono);font-size:13px;color:var(--steel);text-align:right}
   .cap-num b{color:var(--ink)}
 
-  .section-intro{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;gap:16px}
+  .section-intro{display:flex;justify-content:space-between;align-items:flex-end;margin:2px 0 14px;gap:16px}
   .section-intro h2{margin:0;font-size:19px}
   .section-intro p{margin:3px 0 0;color:var(--steel);font-size:13px;max-width:680px}
-  .btn{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--steel);background:var(--paper);
-       border:1px solid var(--line);border-radius:4px;padding:8px 13px;cursor:pointer}
-  .btn:hover{color:var(--ink);border-color:var(--steel)}
   .hide{display:none}
+
+  /* ---------- Detail drawer ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(14,17,22,.42);opacity:0;pointer-events:none;transition:opacity .22s;z-index:40}
+  .scrim.show{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:420px;max-width:92vw;background:var(--paper);box-shadow:var(--sh3);transform:translateX(100%);transition:transform .26s cubic-bezier(.2,.7,.2,1);z-index:50;display:flex;flex-direction:column}
+  .drawer.show{transform:none}
+  .dh{padding:20px 22px 16px;border-bottom:1px solid var(--line);position:relative}
+  .dh .dclose{position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:var(--steel);font-size:20px;line-height:1;padding:4px}
+  .dh .deyebrow{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.4px}
+  .dh h3{margin:5px 0 0;font-size:20px;padding-right:28px}
+  .dh .dtags{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .dtag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:11px;border:1px solid var(--line);color:var(--steel);background:#fff}
+  .dtag.risk{color:var(--sienna);border-color:var(--sienna);background:#fdf5f1}
+  .dtag.ok{color:var(--forest);border-color:var(--forest);background:rgba(47,94,79,.07)}
+  .dbody{padding:18px 22px;overflow:auto}
+  .dfacts{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-bottom:22px}
+  .dfact .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--fog);font-weight:600}
+  .dfact .v{font-size:14px;margin-top:3px}.dfact .v.mono{font-family:var(--mono);font-weight:600}
+  .dtitle{font-family:var(--display);font-weight:600;font-size:13px;color:var(--ink);margin:4px 0 12px;letter-spacing:.2px}
+  .tl{position:relative;padding-left:20px}
+  .tl::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding:0 0 16px}
+  .tl-item::before{content:"";position:absolute;left:-18px;top:3px;width:9px;height:9px;border-radius:50%;background:var(--steel);border:2px solid var(--paper)}
+  .tl-item.now::before{background:var(--blue)}
+  .tl-item .tt{font-size:13px;font-weight:600}
+  .tl-item .td{font-size:11.5px;color:var(--fog);font-family:var(--mono);margin-top:1px}
+  .dnote{font-size:12.5px;color:var(--steel);background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-top:8px}
 
   /* ---------- Footer ---------- */
   footer{background:var(--ink);color:var(--bone);margin-top:8px}
-  .foot-in{max-width:1320px;margin:0 auto;padding:30px 28px;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .foot-in{max-width:1360px;margin:0 auto;padding:30px;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
   .wordmark{font-family:var(--display);line-height:1;letter-spacing:2px}
   .wordmark .a{font-size:26px;font-weight:600;display:block}
   .wordmark .s{font-size:11px;font-weight:500;letter-spacing:4.5px;color:var(--fog);display:block;margin-top:4px}
@@ -140,11 +203,11 @@
   .foot-contact{font-size:12.5px;color:var(--fog);text-align:right}
   .foot-contact a{color:var(--bone)}
 
-  @media(max-width:1080px){
+  @media(max-width:1100px){
     .kpis{grid-template-columns:repeat(2,1fr)}
-    .board{grid-template-columns:1fr;}
-    .cap-row{grid-template-columns:1fr;gap:8px}
-    .cap-num{text-align:left}
+    .insights{grid-template-columns:1fr}
+    .board{grid-template-columns:1fr}
+    .cap-row{grid-template-columns:1fr;gap:8px}.cap-num{text-align:left}
   }
 </style>
 </head>
@@ -163,7 +226,7 @@
       <div class="firm">Frazier &amp; Associates, CPAs</div>
       <div>Franklin, Tennessee</div>
       <div style="margin-top:7px"><span class="pill">Working sample</span></div>
-      <div style="margin-top:7px">Prepared by Atrium Service Group, LLC</div>
+      <div class="live"><span class="dot"></span><span id="updated">Updated just now</span></div>
     </div>
   </div>
   <div class="accent-rule"></div>
@@ -176,16 +239,40 @@
 </nav>
 
 <main>
-  <!-- KPI TILES -->
   <section class="kpis" id="kpis"></section>
+
+  <section class="insights" id="insights">
+    <div class="panel">
+      <h3>Pipeline throughput</h3>
+      <div class="ph-sub">Returns filed &amp; billed per week — last 8 weeks</div>
+      <div class="chart-row" id="throughput"></div>
+    </div>
+    <div class="panel">
+      <h3>Stage distribution</h3>
+      <div class="ph-sub">Where the active book sits right now</div>
+      <div class="stage-dist" id="stagedist"></div>
+    </div>
+  </section>
 
   <!-- PIPELINE -->
   <section id="tab-pipeline">
     <div class="section-intro">
       <div>
         <h2>Return pipeline</h2>
-        <p>Every active return, by stage. Drag a card to move it forward — the tiles above update live. In the production build, cards advance automatically as work is logged in QuickBooks and email.</p>
+        <p>Every active return, by stage. Drag a card to move it forward, or click it for full detail. In the production build, cards advance automatically as work is logged in QuickBooks and email.</p>
       </div>
+    </div>
+    <div class="toolbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="q" type="text" placeholder="Search client, return type, preparer…">
+      </div>
+      <div class="seg" id="riskSeg">
+        <button data-risk="all" class="on">All</button>
+        <button data-risk="risk">At risk</button>
+        <button data-risk="await">Awaiting client</button>
+      </div>
+      <select class="flt" id="prepFlt"><option value="all">All preparers</option></select>
       <button class="btn" id="resetBtn">Reset sample</button>
     </div>
     <div class="board" id="board"></div>
@@ -217,11 +304,12 @@
   </section>
 </main>
 
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true"></aside>
+
 <footer>
   <div class="foot-in">
-    <div>
-      <div class="wordmark"><span class="a">ATRIUM</span><span class="s">SERVICE GROUP</span></div>
-    </div>
+    <div class="wordmark"><span class="a">ATRIUM</span><span class="s">SERVICE GROUP</span></div>
     <div class="foot-note">
       <strong>This is a working sample, not a live system.</strong> The numbers and clients here are
       illustrative. The production build runs in Airtable with live records, automated triggers that
@@ -239,42 +327,43 @@
 
 <script>
 /* ================================================================
-   SAMPLE DATA  —  replace this block to wire in live data.
+   SAMPLE DATA — replace this block to wire in live data.
    In production this is fetched from Airtable (or Google Sheets):
-     const DATA = await fetch('/api/records').then(r=>r.json());
+       const DATA = await fetch('/api/records').then(r=>r.json());
    Keep the same shape and everything below renders unchanged.
-   All names/figures below are fictional and for demonstration only.
+   All names/figures below are fictional, for demonstration only.
    ================================================================ */
 const STAGES = ["Intake","In Prep","In Review","Awaiting Client","Filed & Billed"];
+const STAGE_PROG = {"Intake":12,"In Prep":42,"In Review":68,"Awaiting Client":85,"Filed & Billed":100};
 
 const PREPARERS = [
-  {id:"kd", name:"Kim Donchez",      role:"Managing Partner", init:"KD", cap:8},
-  {id:"jf", name:"James Frazier",    role:"Partner / Review", init:"JF", cap:8},
-  {id:"ms", name:"Maria Santos",     role:"Senior Preparer",  init:"MS", cap:8},
-  {id:"dt", name:"Derek Tran",       role:"Staff Preparer",   init:"DT", cap:8},
-  {id:"ap", name:"Aisha Patel",      role:"Staff Preparer",   init:"AP", cap:8}
+  {id:"kd", name:"Kim Donchez",   role:"Managing Partner", init:"KD", cap:8},
+  {id:"jf", name:"James Frazier", role:"Partner / Review", init:"JF", cap:8},
+  {id:"ms", name:"Maria Santos",  role:"Senior Preparer",  init:"MS", cap:8},
+  {id:"dt", name:"Derek Tran",    role:"Staff Preparer",   init:"DT", cap:8},
+  {id:"ap", name:"Aisha Patel",   role:"Staff Preparer",   init:"AP", cap:8}
 ];
 
-/* due dates are relative offsets (days from "today") so the sample always looks current */
+/* off = days from today (negative = past). dis = days in current stage. pri = priority */
 const RETURNS = [
-  {id:"R-1041", client:"Holloway Family Trust",     type:"1041",   prep:"jf", fee:1850, off:-3, stage:"In Review",       flag:"overdue"},
-  {id:"R-2207", client:"Briar Creek Dental, PLLC",  type:"1120-S", prep:"ms", fee:2400, off:2,  stage:"In Prep",         flag:"at-risk"},
-  {id:"R-3112", client:"Nashville Glassworks LLC",  type:"1065",   prep:"dt", fee:1950, off:9,  stage:"Intake",          flag:"on-track"},
-  {id:"R-3340", client:"Cedar & Vine Catering",     type:"1120-S", prep:"ms", fee:1600, off:5,  stage:"In Prep",         flag:"on-track"},
-  {id:"R-4001", client:"R. & L. Okafor (1040)",     type:"1040",   prep:"ap", fee:650,  off:1,  stage:"Awaiting Client", flag:"at-risk"},
-  {id:"R-4012", client:"Tran Family (1040)",        type:"1040",   prep:"dt", fee:725,  off:12, stage:"Intake",          flag:"on-track"},
-  {id:"R-4188", client:"Maplewood Pediatrics PA",   type:"1120",   prep:"jf", fee:3100, off:7,  stage:"In Review",       flag:"on-track"},
-  {id:"R-4203", client:"Sycamore Realty Group",     type:"1065",   prep:"ms", fee:2150, off:-1, stage:"Awaiting Client", flag:"overdue"},
-  {id:"R-4410", client:"Greenbriar Foundation",     type:"990",    prep:"ap", fee:1400, off:15, stage:"Intake",          flag:"on-track"},
-  {id:"R-4533", client:"Hudson & Park Architects",  type:"1120-S", prep:"dt", fee:2050, off:4,  stage:"In Prep",         flag:"at-risk"},
-  {id:"R-4609", client:"Willowbrook Veterinary",    type:"1120-S", prep:"ms", fee:1900, off:6,  stage:"Awaiting Client", flag:"on-track"},
-  {id:"R-4701", client:"K. Whitfield (1040)",       type:"1040",   prep:"ap", fee:600,  off:3,  stage:"In Prep",         flag:"on-track"},
-  {id:"R-4777", client:"Beacon Logistics Inc.",     type:"1120",   prep:"jf", fee:3400, off:8,  stage:"In Prep",         flag:"on-track"},
-  {id:"R-4820", client:"Otto's Hardware Co.",       type:"1120-S", prep:"dt", fee:1750, off:-2, stage:"In Review",       flag:"overdue"},
-  {id:"R-4901", client:"Lakeside Yoga Studio",      type:"1065",   prep:"ms", fee:1500, off:18, stage:"Intake",          flag:"on-track"},
-  {id:"R-3008", client:"Cumberland Roofing LLC",    type:"1120-S", prep:"jf", fee:2600, off:-9, stage:"Filed & Billed",  flag:"on-track"},
-  {id:"R-3055", client:"M. & S. Delgado (1040)",    type:"1040",   prep:"ap", fee:700,  off:-7, stage:"Filed & Billed",  flag:"on-track"},
-  {id:"R-3070", client:"Franklin Family Dentistry", type:"1120-S", prep:"ms", fee:2300, off:-5, stage:"Filed & Billed",  flag:"on-track"}
+  {id:"R-1041", client:"Holloway Family Trust",     type:"1041",   prep:"jf", fee:1850, off:-3, stage:"In Review",       flag:"overdue",  pri:"high", dis:6, note:"Awaiting depreciation schedule from prior preparer; review flagged two K-1 mismatches."},
+  {id:"R-2207", client:"Briar Creek Dental, PLLC",  type:"1120-S", prep:"ms", fee:2400, off:2,  stage:"In Prep",         flag:"at-risk",  pri:"high", dis:4, note:"Owner comp allocation under review; client slow to return payroll detail."},
+  {id:"R-3112", client:"Nashville Glassworks LLC",  type:"1065",   prep:"dt", fee:1950, off:9,  stage:"Intake",          flag:"on-track", pri:"normal", dis:1, note:"New engagement; organizer sent, books imported from QuickBooks."},
+  {id:"R-3340", client:"Cedar & Vine Catering",     type:"1120-S", prep:"ms", fee:1600, off:5,  stage:"In Prep",         flag:"on-track", pri:"normal", dis:2, note:"Standard S-corp; on schedule."},
+  {id:"R-4001", client:"R. & L. Okafor (1040)",     type:"1040",   prep:"ap", fee:650,  off:1,  stage:"Awaiting Client", flag:"at-risk",  pri:"high", dis:5, note:"Missing two 1099-INTs and a brokerage 1099-B; reminder sent twice."},
+  {id:"R-4012", client:"Tran Family (1040)",        type:"1040",   prep:"dt", fee:725,  off:12, stage:"Intake",          flag:"on-track", pri:"low", dis:1, note:"Documents complete; queued for prep."},
+  {id:"R-4188", client:"Maplewood Pediatrics PA",   type:"1120",   prep:"jf", fee:3100, off:7,  stage:"In Review",       flag:"on-track", pri:"normal", dis:2, note:"C-corp; partner review in progress."},
+  {id:"R-4203", client:"Sycamore Realty Group",     type:"1065",   prep:"ms", fee:2150, off:-1, stage:"Awaiting Client", flag:"overdue",  pri:"high", dis:8, note:"Partner signatures outstanding on K-1 distribution; follow-up scheduled."},
+  {id:"R-4410", client:"Greenbriar Foundation",     type:"990",    prep:"ap", fee:1400, off:15, stage:"Intake",          flag:"on-track", pri:"low", dis:1, note:"Non-profit 990; grant schedules requested."},
+  {id:"R-4533", client:"Hudson & Park Architects",  type:"1120-S", prep:"dt", fee:2050, off:4,  stage:"In Prep",         flag:"at-risk",  pri:"normal", dis:3, note:"Fixed-asset additions need reconciliation against the GL."},
+  {id:"R-4609", client:"Willowbrook Veterinary",    type:"1120-S", prep:"ms", fee:1900, off:6,  stage:"Awaiting Client", flag:"on-track", pri:"normal", dis:2, note:"Officer health-insurance detail requested from client."},
+  {id:"R-4701", client:"K. Whitfield (1040)",       type:"1040",   prep:"ap", fee:600,  off:3,  stage:"In Prep",         flag:"on-track", pri:"low", dis:1, note:"Single W-2 plus Schedule C; straightforward."},
+  {id:"R-4777", client:"Beacon Logistics Inc.",     type:"1120",   prep:"jf", fee:3400, off:8,  stage:"In Prep",         flag:"on-track", pri:"normal", dis:2, note:"Multi-state apportionment; TN + GA + SC nexus."},
+  {id:"R-4820", client:"Otto's Hardware Co.",       type:"1120-S", prep:"dt", fee:1750, off:-2, stage:"In Review",       flag:"overdue",  pri:"high", dis:5, note:"Inventory method change flagged; needs partner sign-off before filing."},
+  {id:"R-4901", client:"Lakeside Yoga Studio",      type:"1065",   prep:"ms", fee:1500, off:18, stage:"Intake",          flag:"on-track", pri:"low", dis:1, note:"New client; awaiting prior-year return."},
+  {id:"R-3008", client:"Cumberland Roofing LLC",    type:"1120-S", prep:"jf", fee:2600, off:-9, stage:"Filed & Billed",  flag:"on-track", pri:"normal", dis:3, note:"Filed and invoiced; payment Net 15."},
+  {id:"R-3055", client:"M. & S. Delgado (1040)",    type:"1040",   prep:"ap", fee:700,  off:-7, stage:"Filed & Billed",  flag:"on-track", pri:"low", dis:2, note:"E-filed; refund accepted by IRS."},
+  {id:"R-3070", client:"Franklin Family Dentistry", type:"1120-S", prep:"ms", fee:2300, off:-5, stage:"Filed & Billed",  flag:"on-track", pri:"normal", dis:2, note:"Filed; balance billed."}
 ];
 
 const NOTICES = [
@@ -286,150 +375,213 @@ const NOTICES = [
   {id:"N-06", title:"K-1 follow-up to partners",          client:"Hudson & Park Architects",   owner:"ms", off:-1, status:"open"},
   {id:"N-07", title:"Prior-year amendment confirmation",  client:"Cumberland Roofing LLC",     owner:"jf", off:-4, status:"done"}
 ];
+
+const THROUGHPUT = [3,5,4,6,5,4,7,6]; /* filed & billed per week, last 8 wks */
 /* ===================== END SAMPLE DATA ===================== */
 
-// ---------- helpers ----------
-const $ = s => document.querySelector(s);
-const prepById = id => PREPARERS.find(p=>p.id===id);
-const fmt$ = n => "$"+n.toLocaleString("en-US");
-const DAY = 86400000;
+const $=s=>document.querySelector(s);
+const prepById=id=>PREPARERS.find(p=>p.id===id);
+const fmt$=n=>"$"+n.toLocaleString("en-US");
+const firstLast=p=>p.name.split(" ")[0]+" "+p.name.split(" ")[1][0]+".";
+const DAY=86400000;
 function dueInfo(off){
-  const d = new Date(Date.now()+off*DAY);
-  const label = d.toLocaleDateString("en-US",{month:"short",day:"numeric"});
-  let cls="okd", word=("Due "+label);
-  if(off<0){cls="bad"; word="Overdue · "+label;}
-  else if(off===0){cls="warnd"; word="Due today";}
-  else if(off<=3){cls="warnd"; word="Due "+label;}
-  return {cls,word};
+  const d=new Date(Date.now()+off*DAY);
+  const label=d.toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  if(off<0)return{cls:"bad",word:"Overdue · "+label};
+  if(off===0)return{cls:"warnd",word:"Due today"};
+  if(off<=3)return{cls:"warnd",word:"Due "+label};
+  return{cls:"okd",word:"Due "+label};
 }
 
-// load any saved drag state for this session
-let state = JSON.parse(localStorage.getItem("frazier_stage")||"{}");
-RETURNS.forEach(r=>{ if(state[r.id]) r.stage = state[r.id]; });
-function saveState(){
-  const m={}; RETURNS.forEach(r=>m[r.id]=r.stage);
-  localStorage.setItem("frazier_stage", JSON.stringify(m));
+let state=JSON.parse(localStorage.getItem("frazier_stage")||"{}");
+RETURNS.forEach(r=>{if(state[r.id])r.stage=state[r.id];});
+function saveState(){const m={};RETURNS.forEach(r=>m[r.id]=r.stage);localStorage.setItem("frazier_stage",JSON.stringify(m));}
+
+let filter={q:"",risk:"all",prep:"all"};
+function visible(r){
+  if(filter.risk==="risk"&&r.flag==="on-track")return false;
+  if(filter.risk==="await"&&r.stage!=="Awaiting Client")return false;
+  if(filter.prep!=="all"&&r.prep!==filter.prep)return false;
+  if(filter.q){
+    const hay=(r.client+" "+r.type+" "+prepById(r.prep).name+" "+r.id).toLowerCase();
+    if(!hay.includes(filter.q.toLowerCase()))return false;
+  }
+  return true;
 }
 
-// ---------- KPIs ----------
+/* ---- count-up ---- */
+function countUp(el,target,money){
+  const dur=750,t0=performance.now();
+  function step(t){
+    const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3),val=Math.round(target*e);
+    el.textContent=money?fmt$(val):val;
+    if(k<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
 function renderKPIs(){
-  const active = RETURNS.filter(r=>r.stage!=="Filed & Billed");
-  const atrisk = active.filter(r=>r.flag!=="on-track");
-  const awaiting = active.filter(r=>r.stage==="Awaiting Client");
-  const filed = RETURNS.filter(r=>r.stage==="Filed & Billed");
-  const wip = active.reduce((s,r)=>s+r.fee,0);
-  const tiles = [
-    {label:"Active returns", num:active.length, foot:"in the pipeline now"},
-    {label:"At risk / overdue", num:atrisk.length, foot:"need attention", warn:atrisk.length>0},
-    {label:"Awaiting client", num:awaiting.length, foot:"waiting on documents"},
-    {label:"Filed &amp; billed", num:filed.length, foot:"recently completed"},
-    {label:"Fees in WIP", num:fmt$(wip), foot:"active engagement value"}
+  const active=RETURNS.filter(r=>r.stage!=="Filed & Billed");
+  const atrisk=active.filter(r=>r.flag!=="on-track");
+  const awaiting=active.filter(r=>r.stage==="Awaiting Client");
+  const filed=RETURNS.filter(r=>r.stage==="Filed & Billed");
+  const wip=active.reduce((s,r)=>s+r.fee,0);
+  const tiles=[
+    {label:"Active returns",num:active.length,foot:"in the pipeline now"},
+    {label:"At risk / overdue",num:atrisk.length,foot:"need attention",warn:atrisk.length>0},
+    {label:"Awaiting client",num:awaiting.length,foot:"waiting on documents"},
+    {label:"Filed &amp; billed",num:filed.length,foot:"recently completed"},
+    {label:"Fees in WIP",num:wip,foot:"active engagement value",money:true}
   ];
-  $("#kpis").innerHTML = tiles.map(t=>`
+  $("#kpis").innerHTML=tiles.map(t=>`
     <div class="kpi ${t.warn?'warn':''}">
       <div class="label">${t.label}</div>
-      <div class="num ${t.warn?'warn':''}">${t.num}</div>
+      <div class="num ${t.warn?'warn':''}" data-n="${t.num}" data-money="${t.money?1:0}">0</div>
       <div class="foot">${t.foot}</div>
     </div>`).join("");
+  document.querySelectorAll("#kpis .num").forEach(el=>countUp(el,+el.dataset.n,el.dataset.money==="1"));
 }
 
-// ---------- Board ----------
+function renderInsights(){
+  const mx=Math.max(...THROUGHPUT);
+  $("#throughput").innerHTML=THROUGHPUT.map((v,i)=>{
+    const wk=THROUGHPUT.length-i; const lbl=i===THROUGHPUT.length-1?"now":("-"+wk+"w");
+    return `<div class="bar-col"><div class="bv">${v}</div><div class="bwrap"><div class="bar" style="height:0" data-h="${Math.round(v/mx*100)}"></div></div><div class="bl">${lbl}</div></div>`;
+  }).join("");
+  requestAnimationFrame(()=>document.querySelectorAll("#throughput .bar").forEach(b=>b.style.height=b.dataset.h+"%"));
+  const active=RETURNS.filter(r=>r.stage!=="Filed & Billed");
+  const tot=active.length||1;
+  $("#stagedist").innerHTML=STAGES.filter(s=>s!=="Filed & Billed").map(s=>{
+    const n=active.filter(r=>r.stage===s).length;
+    return `<div class="sd-row"><span class="sdn">${s}</span><div class="sd-bar"><span style="width:0" data-w="${Math.round(n/tot*100)}"></span></div><span class="sdv">${n}</span></div>`;
+  }).join("");
+  requestAnimationFrame(()=>document.querySelectorAll("#stagedist .sd-bar>span").forEach(b=>b.style.width=b.dataset.w+"%"));
+}
+
 function cardHTML(r){
-  const p = prepById(r.prep);
-  const di = dueInfo(r.off);
+  const p=prepById(r.prep),di=dueInfo(r.off);
+  const priLabel={high:"High priority",normal:"Normal",low:"Low"}[r.pri];
   return `<div class="card flag-${r.flag}" draggable="true" data-id="${r.id}">
-      <div class="ctop">
-        <span class="client">${r.client}</span>
-        <span class="type">${r.type}</span>
-      </div>
-      <div class="meta">
-        <span class="who"><span class="av">${p.init}</span>${p.name.split(" ")[0]} ${p.name.split(" ")[1][0]}.</span>
-        <span class="fee">${fmt$(r.fee)}</span>
-      </div>
-      <div class="due ${di.cls}"><span class="tag">${di.word}</span></div>
-    </div>`;
+    <div class="ctop"><span class="client">${r.client}</span><span class="type">${r.type}</span></div>
+    <div class="pri ${r.pri}"><i></i>${priLabel}</div>
+    <div class="meta"><span class="who"><span class="av">${p.init}</span>${firstLast(p)}</span><span class="fee">${fmt$(r.fee)}</span></div>
+    <div class="prog"><span style="width:${STAGE_PROG[r.stage]}%"></span></div>
+    <div class="cfoot"><span class="due ${di.cls}">${di.word}</span><span class="dis">${r.dis}d in stage</span></div>
+  </div>`;
 }
 function renderBoard(){
-  const board = $("#board");
-  board.innerHTML = STAGES.map(s=>{
-    const items = RETURNS.filter(r=>r.stage===s);
+  $("#board").innerHTML=STAGES.map(s=>{
+    const all=RETURNS.filter(r=>r.stage===s);
+    const items=all.filter(visible);
     return `<div class="col">
-      <div class="col-head"><span class="name">${s.replace("&","&amp;")}</span><span class="c">${items.length}</span></div>
+      <div class="col-head"><span class="name">${s.replace("&","&amp;")}</span><span class="c">${items.length}${items.length!==all.length?'/'+all.length:''}</span></div>
       <div class="col-body" data-stage="${s}">${items.map(cardHTML).join("")}</div>
     </div>`;
   }).join("");
-  wireDnD();
+  wireCards();
 }
-function wireDnD(){
-  let dragId=null;
+let dragId=null;
+function wireCards(){
   document.querySelectorAll(".card").forEach(c=>{
-    c.addEventListener("dragstart",e=>{dragId=c.dataset.id; e.dataTransfer.effectAllowed="move"; setTimeout(()=>c.style.opacity=".4",0);});
-    c.addEventListener("dragend",()=>{c.style.opacity="1";});
+    c.addEventListener("dragstart",e=>{dragId=c.dataset.id;e.dataTransfer.effectAllowed="move";setTimeout(()=>c.style.opacity=".35",0);});
+    c.addEventListener("dragend",()=>c.style.opacity="1");
+    c.addEventListener("click",()=>openDrawer(c.dataset.id));
   });
   document.querySelectorAll(".col-body").forEach(b=>{
-    b.addEventListener("dragover",e=>{e.preventDefault(); b.classList.add("dragover");});
+    b.addEventListener("dragover",e=>{e.preventDefault();b.classList.add("dragover");});
     b.addEventListener("dragleave",()=>b.classList.remove("dragover"));
-    b.addEventListener("drop",e=>{
-      e.preventDefault(); b.classList.remove("dragover");
-      const r = RETURNS.find(x=>x.id===dragId);
-      if(r){ r.stage = b.dataset.stage; saveState(); renderAll(); }
+    b.addEventListener("drop",e=>{e.preventDefault();b.classList.remove("dragover");
+      const r=RETURNS.find(x=>x.id===dragId);
+      if(r&&r.stage!==b.dataset.stage){r.stage=b.dataset.stage;r.dis=0;saveState();renderAll();}
     });
   });
 }
 
-// ---------- Notices ----------
-function renderNotices(){
-  const order = {open:0,prog:1,done:2};
-  const rows = [...NOTICES].sort((a,b)=>(order[a.status]-order[b.status])||(a.off-b.off));
-  const labels={open:"Open",prog:"In progress",done:"Done"};
-  $("#noticeRows").innerHTML = rows.map(n=>{
-    const p = prepById(n.owner);
-    const di = dueInfo(n.off);
-    const bad = n.off<0 && n.status!=="done";
-    return `<tr>
-      <td><strong style="font-weight:600">${n.title}</strong></td>
-      <td>${n.client}</td>
-      <td><span class="who" style="display:inline-flex;align-items:center;gap:7px"><span class="av">${p.init}</span>${p.name.split(" ")[0]} ${p.name.split(" ")[1][0]}.</span></td>
-      <td class="duecell ${bad?'bad':''}">${n.status==="done"?"—":di.word}</td>
-      <td><span class="chip ${n.status}">${labels[n.status]}</span></td>
-    </tr>`;
+function openDrawer(id){
+  const r=RETURNS.find(x=>x.id===id);if(!r)return;
+  const p=prepById(r.prep),di=dueInfo(r.off);
+  const flagTag={"on-track":'<span class="dtag ok">On track</span>',"at-risk":'<span class="dtag risk">At risk</span>',"overdue":'<span class="dtag risk">Overdue</span>'}[r.flag];
+  const idx=STAGES.indexOf(r.stage);
+  const tl=STAGES.map((s,i)=>{
+    const now=i===idx;
+    const sub=i<idx?"Completed":now?"Current stage · "+r.dis+"d":"Pending";
+    return `<div class="tl-item ${now?'now':''}"><div class="tt">${s}</div><div class="td">${sub}</div></div>`;
   }).join("");
-  const open = NOTICES.filter(n=>n.status!=="done").length;
-  $("#noticeCount").textContent = open;
-}
-
-// ---------- Capacity ----------
-function renderCapacity(){
-  const wrap = $("#capWrap");
-  wrap.innerHTML = PREPARERS.map(p=>{
-    const load = RETURNS.filter(r=>r.prep===p.id && r.stage!=="Filed & Billed").length;
-    const pct = Math.min(100, Math.round(load/p.cap*100));
-    let cls=""; if(load>p.cap) cls="hot"; else if(load>=p.cap-1) cls="hot"; else if(load<=p.cap/2) cls="cool";
-    const over = load>p.cap;
-    return `<div class="cap-row">
-      <div class="cap-person"><span class="av lg">${p.init}</span>
-        <div><div class="nm">${p.name}</div><div class="rl">${p.role}</div></div></div>
-      <div class="bar"><span class="${cls}" style="width:${Math.max(pct,Math.min(load/p.cap*100,140))}%"></span></div>
-      <div class="cap-num"><b>${load}</b> / ${p.cap} active${over?' · over':''}</div>
+  $("#drawer").innerHTML=`
+    <div class="dh">
+      <button class="dclose" id="dclose" aria-label="Close">×</button>
+      <div class="deyebrow">${r.id} · ${r.type}</div>
+      <h3>${r.client}</h3>
+      <div class="dtags">${flagTag}<span class="dtag">${{high:"High priority",normal:"Normal priority",low:"Low priority"}[r.pri]}</span></div>
+    </div>
+    <div class="dbody">
+      <div class="dfacts">
+        <div class="dfact"><div class="k">Preparer</div><div class="v">${p.name}</div></div>
+        <div class="dfact"><div class="k">Role</div><div class="v">${p.role}</div></div>
+        <div class="dfact"><div class="k">Stage</div><div class="v">${r.stage}</div></div>
+        <div class="dfact"><div class="k">Due date</div><div class="v">${di.word.replace('Overdue · ','').replace('Due ','')}</div></div>
+        <div class="dfact"><div class="k">Engagement fee</div><div class="v mono">${fmt$(r.fee)}</div></div>
+        <div class="dfact"><div class="k">Days in stage</div><div class="v mono">${r.dis}</div></div>
+      </div>
+      <div class="dtitle">Progress</div>
+      <div class="tl">${tl}</div>
+      <div class="dtitle" style="margin-top:6px">Notes</div>
+      <div class="dnote">${r.note}</div>
     </div>`;
+  $("#dclose").addEventListener("click",closeDrawer);
+  $("#scrim").classList.add("show");$("#drawer").classList.add("show");$("#drawer").setAttribute("aria-hidden","false");
+}
+function closeDrawer(){$("#scrim").classList.remove("show");$("#drawer").classList.remove("show");$("#drawer").setAttribute("aria-hidden","true");}
+
+function renderNotices(){
+  const order={open:0,prog:1,done:2},labels={open:"Open",prog:"In progress",done:"Done"};
+  const rows=[...NOTICES].sort((a,b)=>(order[a.status]-order[b.status])||(a.off-b.off));
+  $("#noticeRows").innerHTML=rows.map(n=>{
+    const p=prepById(n.owner),di=dueInfo(n.off),bad=n.off<0&&n.status!=="done";
+    return `<tr>
+      <td style="font-weight:600">${n.title}</td><td>${n.client}</td>
+      <td><span class="who" style="display:inline-flex;align-items:center;gap:7px"><span class="av">${p.init}</span>${firstLast(p)}</span></td>
+      <td class="duecell ${bad?'bad':''}">${n.status==="done"?"—":di.word}</td>
+      <td><span class="chip ${n.status}">${labels[n.status]}</span></td></tr>`;
   }).join("");
+  $("#noticeCount").textContent=NOTICES.filter(n=>n.status!=="done").length;
 }
 
-// ---------- tabs + render ----------
-function renderAll(){ renderKPIs(); renderBoard(); renderNotices(); renderCapacity(); }
-document.querySelectorAll("#tabs button").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll("#tabs button").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    ["pipeline","notices","capacity"].forEach(t=>{
-      $("#tab-"+t).classList.toggle("hide", t!==btn.dataset.tab);
-    });
-  });
-});
-$("#resetBtn").addEventListener("click",()=>{
-  localStorage.removeItem("frazier_stage");
-  location.reload();
-});
+function renderCapacity(){
+  $("#capWrap").innerHTML=PREPARERS.map(p=>{
+    const load=RETURNS.filter(r=>r.prep===p.id&&r.stage!=="Filed & Billed").length;
+    const pct=Math.min(100,Math.round(load/p.cap*100));
+    let cls=""; if(load>=p.cap-1)cls="hot"; else if(load<=p.cap/2)cls="cool";
+    return `<div class="cap-row">
+      <div class="cap-person"><span class="av lg">${p.init}</span><div><div class="nm">${p.name}</div><div class="rl">${p.role}</div></div></div>
+      <div class="bar"><span class="${cls}" style="width:0" data-w="${pct}"></span></div>
+      <div class="cap-num"><b>${load}</b> / ${p.cap} active${load>p.cap?' · over':''}</div></div>`;
+  }).join("");
+  requestAnimationFrame(()=>document.querySelectorAll("#capWrap .bar>span").forEach(b=>b.style.width=b.dataset.w+"%"));
+}
+
+function renderAll(){renderKPIs();renderInsights();renderBoard();renderNotices();renderCapacity();}
+
+/* ---- wiring ---- */
+function initPrepFilter(){
+  const sel=$("#prepFlt");
+  PREPARERS.forEach(p=>{const o=document.createElement("option");o.value=p.id;o.textContent=p.name;sel.appendChild(o);});
+  sel.addEventListener("change",()=>{filter.prep=sel.value;renderBoard();});
+}
+$("#q").addEventListener("input",e=>{filter.q=e.target.value;renderBoard();});
+document.querySelectorAll("#riskSeg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#riskSeg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+  filter.risk=b.dataset.risk;renderBoard();
+}));
+document.querySelectorAll("#tabs button").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+  ["pipeline","notices","capacity"].forEach(t=>$("#tab-"+t).classList.toggle("hide",t!==btn.dataset.tab));
+}));
+$("#resetBtn").addEventListener("click",()=>{localStorage.removeItem("frazier_stage");location.reload();});
+$("#scrim").addEventListener("click",closeDrawer);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
+
+initPrepFilter();
 renderAll();
 </script>
 </body>
